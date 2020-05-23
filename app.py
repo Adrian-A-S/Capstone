@@ -10,6 +10,7 @@ from flask_cors import CORS
 
 from models import setup_db, db_drop_and_create_all, Movie, Actor
 from auth import AuthError, requires_auth
+import pdb
 
 
 def create_app(test_config=None):
@@ -26,7 +27,7 @@ app = create_app()
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)
 
-# db_drop_and_create_all()
+#db_drop_and_create_all()
 
 
 @app.route('/movies', methods=['GET'])
@@ -37,7 +38,7 @@ def getMovies(jwt):
         abort(404)
     return jsonify({
         "success": True,
-        "movies": [movie.title for movie in movies]
+        "movies": [{"Title": movie.title, "Date": movie.movie_date, "Actors": movie.actors} for movie in movies]
     }), 200
 
 
@@ -49,7 +50,7 @@ def getActors(jwt):
         abort(404)
     return jsonify({
         "success": True,
-        "actors": [actor.name for actor in actors]
+        "actors": [{"Name": actor.name, "Age": actor.age, "Gender": actor.gender} for actor in actors]
     }), 200
 
 
@@ -90,8 +91,7 @@ def postMovie(jwt):
     newMovie = Movie(
         title=m_title,
         movie_date=datetime.datetime.strptime(
-            m_date,
-            '%Y-%m-%dT%H:%M:%S'))
+            m_date,'%Y-%m-%dT%H:%M:%S'))
     newMovie.insert()
     return jsonify({
         "success": True,
@@ -134,10 +134,12 @@ def patchMovie(jwt, mid):
     if ('actors' in request.get_json()):
         newActors = request.get_json()['actors']
         for newActor in newActors:
-            actor = Actor.query.filter(Actor.name == newActor).one_or_none()
+            actor = Actor.query.filter(Actor.name == newActor['name']).one_or_none()
             if actor is None:
                 abort(404)
-            movie.actors.append(actor.id)
+            if movie.actors is None:
+                movie.actors = []
+            movie.actors.append(actor)
     movie.update()
     return jsonify({
         "success": True,
@@ -163,7 +165,7 @@ def patchActor(jwt, aid):
     actor.update()
     return jsonify({
         "Success": True,
-        "Actor": actor
+        "Actor": actor.name
     }), 200
 
 
