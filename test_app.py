@@ -1,26 +1,33 @@
 import unittest
 import json
 import models
+import os
+import app
 from app import create_app
 from flask_sqlalchemy import SQLAlchemy
 from models import db_drop_and_create_all
 from models import setup_db
-import pdb
+import models
 
+database_filename = "testing.db"
+project_dir = os.path.dirname(os.path.abspath(__file__))
+database_path = "sqlite:///{}".format(os.path.join(project_dir, database_filename))
 
 class Tests (unittest.TestCase):
     def setUp(self):
         self.app = create_app()
         self.app.testing = True
-        self.client = self.app.test_client
 
         with self.app.app_context():
-            self.db = SQLAlchemy(self.app)
+            self.client = self.app.test_client
+            self.app.config["SQLALCHEMY_DATABASE_URI"]=database_path
+            self.db = SQLAlchemy()
             self.db.init_app(self.app)
+            self.db.drop_all()
             self.db.create_all()
             
 
-        self.director = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkpDUFB4bUYzOWFhWTAyNUt2aWlrQSJ9.eyJpc3MiOiJodHRwczovL2Rldi15MjV3ZTU0aS5ldS5hdXRoMC5jb20vIiwic3ViIjoiMTJRVzhocFBkQnpsdEZ6OWFhU3kwVWQ5WENtcFRqMGJAY2xpZW50cyIsImF1ZCI6IlppQ2Fwc3RvbmUiLCJpYXQiOjE1OTAyMTE4NDAsImV4cCI6MTU5MDI5ODI0MCwiYXpwIjoiMTJRVzhocFBkQnpsdEZ6OWFhU3kwVWQ5WENtcFRqMGIiLCJzY29wZSI6ImdldDptb3ZpZXMgZ2V0OmFjdG9ycyBwb3N0Om1vdmllcyBwb3N0OmFjdG9ycyBwYXRjaDptb3ZpZXMgcGF0Y2g6YWN0b3JzIGRlbGV0ZTptb3ZpZXMgZGVsZXRlOmFjdG9ycyIsImd0eSI6ImNsaWVudC1jcmVkZW50aWFscyIsInBlcm1pc3Npb25zIjpbImdldDptb3ZpZXMiLCJnZXQ6YWN0b3JzIiwicG9zdDptb3ZpZXMiLCJwb3N0OmFjdG9ycyIsInBhdGNoOm1vdmllcyIsInBhdGNoOmFjdG9ycyIsImRlbGV0ZTptb3ZpZXMiLCJkZWxldGU6YWN0b3JzIl19.AxF0rUYLvWBHmPbJF4uJEUe1p1Aol3HfxKR3DC74ukxMlRV3Iy7UmWVQSjNNBDbVNbYVKk2pfS3Cw7tQQuUP6eBMjrVIMsuLYXNeD4FpXmMN2ROhsrR3EO6_kYzH6or2LWXsT6jryJcDZOQIKeoizfI4FGGqA2_vlg70rHi1_IgdMltqZN7Be4sH7VH17JS4Wp5NtQTBG6n9n1kBMvwzC32HXR91rBDzs5_GSedISQjfp-e_5oPT6W9uvkIaTcx1bFN_B1_B2LgAUwiiuJYpUDjWAj_8pipuEthJYRM1sNvd5g2VPY61wNVBtqJWpRyZPNylIZfDBsxe_VMUxyYu4A'
+        self.director = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkpDUFB4bUYzOWFhWTAyNUt2aWlrQSJ9.eyJpc3MiOiJodHRwczovL2Rldi15MjV3ZTU0aS5ldS5hdXRoMC5jb20vIiwic3ViIjoiMTJRVzhocFBkQnpsdEZ6OWFhU3kwVWQ5WENtcFRqMGJAY2xpZW50cyIsImF1ZCI6IlppQ2Fwc3RvbmUiLCJpYXQiOjE1OTA1ODMzMTgsImV4cCI6MTU5MDY2OTcxOCwiYXpwIjoiMTJRVzhocFBkQnpsdEZ6OWFhU3kwVWQ5WENtcFRqMGIiLCJzY29wZSI6ImdldDptb3ZpZXMgZ2V0OmFjdG9ycyBwb3N0Om1vdmllcyBwb3N0OmFjdG9ycyBwYXRjaDptb3ZpZXMgcGF0Y2g6YWN0b3JzIGRlbGV0ZTptb3ZpZXMgZGVsZXRlOmFjdG9ycyIsImd0eSI6ImNsaWVudC1jcmVkZW50aWFscyIsInBlcm1pc3Npb25zIjpbImdldDptb3ZpZXMiLCJnZXQ6YWN0b3JzIiwicG9zdDptb3ZpZXMiLCJwb3N0OmFjdG9ycyIsInBhdGNoOm1vdmllcyIsInBhdGNoOmFjdG9ycyIsImRlbGV0ZTptb3ZpZXMiLCJkZWxldGU6YWN0b3JzIl19.MfKt9hk4IqbA5z9x6t1Ypi11XxYqSDcCBlQE54WHOCTXYmQ-DCKsC5WNaFB60se1OWNvKHzvj8YMCCIAyITu9zXgC4MwnVclusZiq73EKnxfBtIuG7VGqMoAwgWEHiQb9GCx_CGfJVTrcAIESwvne0UbIpEQXD07oSpeVeS2l7-tt8UKf8-aO95JdVPxad6FV1bT35UVscj94d_6a-jfkWLkJuhJlt4Q0QMsyVdg2UbRzGU7nmEiLDpkZb3k_VlIYpTMoDs8nBXW_pmjDOuu2x4r7EcilwynUZ7VjTqzWBfl6L-g5-cejNHSwOCZottoV67j7FPFbaLpgyWvbOi-9A'
 
         self.headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer '+ self.director}
 
@@ -36,7 +43,7 @@ class Tests (unittest.TestCase):
         self.otherMovie = {
             'title': 'Movie 1',
             'movie_date': '2020-01-01T00:00:00',
-            'actors': self.newActor
+            'actors': [self.newActor]
         }
         self.otherActor = {
             'name': 'Actor 1',
@@ -50,7 +57,6 @@ class Tests (unittest.TestCase):
 
     def testGET(self):
         res = self.client().get('/movies')
-        pdb.set_trace()
         self.assertEqual(res.status_code, 401)
 
         res = self.client().get(
@@ -86,6 +92,16 @@ class Tests (unittest.TestCase):
         self.assertEqual(res.status_code, 200)
 
     def testPATCH(self):
+        self.client().post(
+            '/movies',
+            headers=self.headers,
+            json=self.newMovie)
+
+        self.client().post(
+            '/actors',
+            headers=self.headers,
+            json=self.newActor)
+
         res = self.client().patch('/movies/1', json=self.otherMovie)
         self.assertEqual(res.status_code, 401)
 

@@ -1,0 +1,357 @@
+{
+	"info": {
+		"_postman_id": "5516dd89-c8bb-45fc-a148-28d287e4f919",
+		"name": "Testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Movies",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d32d7d75-88fd-4883-8b06-049f9fa54750",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://aas-capstone.herokuapp.com/movies",
+					"protocol": "https",
+					"host": [
+						"aas-capstone",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Actors",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "738b7607-45a4-48a6-9be4-bab2f5e223ee",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://aas-capstone.herokuapp.com/actors",
+					"protocol": "https",
+					"host": [
+						"aas-capstone",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"actors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Movies",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "94986b08-40c3-4dec-bfb0-4c8619ff5617",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"title\": \"Movie1\",\n\t\"movie_date\": \"2020-01-01T00:00:00\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://aas-capstone.herokuapp.com/movies",
+					"protocol": "https",
+					"host": [
+						"aas-capstone",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Actors",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0a6bd363-4c2c-4018-b8a5-e506cd97b0d3",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Actor 1\",\n    \"age\": 22,\n    \"gender\": \"Unkown\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://aas-capstone.herokuapp.com/actors",
+					"protocol": "https",
+					"host": [
+						"aas-capstone",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"actors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patch Movies",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b4243c9f-7621-45ec-9794-259fb14c2b98",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"title\": \"Movie 1\",\n    \"movie_date\": \"2020-01-02T00:00:00\",\n    \"actors\": [{\n            \"name\": \"Actor 1\",\n            \"age\": 23,\n            \"gender\": \"Still Unkown\"\n        \t}]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://aas-capstone.herokuapp.com/movies/1",
+					"protocol": "https",
+					"host": [
+						"aas-capstone",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"movies",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patch Actors",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "424d91ff-0bf6-42ba-b0a4-ef7bb30b9fff",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Actor 1\",\n    \"age\": 23,\n    \"gender\": \"Still Unkown\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://aas-capstone.herokuapp.com/actors/1",
+					"protocol": "https",
+					"host": [
+						"aas-capstone",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"actors",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Movie",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "504662b4-d557-43b0-92d2-a88434349618",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://aas-capstone.herokuapp.com/movies/1",
+					"protocol": "https",
+					"host": [
+						"aas-capstone",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"movies",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Actor",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e62701eb-a020-419d-94dd-7eb766a22488",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://aas-capstone.herokuapp.com/actors/1",
+					"protocol": "https",
+					"host": [
+						"aas-capstone",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"actors",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkpDUFB4bUYzOWFhWTAyNUt2aWlrQSJ9.eyJpc3MiOiJodHRwczovL2Rldi15MjV3ZTU0aS5ldS5hdXRoMC5jb20vIiwic3ViIjoiMTJRVzhocFBkQnpsdEZ6OWFhU3kwVWQ5WENtcFRqMGJAY2xpZW50cyIsImF1ZCI6IlppQ2Fwc3RvbmUiLCJpYXQiOjE1OTA1ODMzMTgsImV4cCI6MTU5MDY2OTcxOCwiYXpwIjoiMTJRVzhocFBkQnpsdEZ6OWFhU3kwVWQ5WENtcFRqMGIiLCJzY29wZSI6ImdldDptb3ZpZXMgZ2V0OmFjdG9ycyBwb3N0Om1vdmllcyBwb3N0OmFjdG9ycyBwYXRjaDptb3ZpZXMgcGF0Y2g6YWN0b3JzIGRlbGV0ZTptb3ZpZXMgZGVsZXRlOmFjdG9ycyIsImd0eSI6ImNsaWVudC1jcmVkZW50aWFscyIsInBlcm1pc3Npb25zIjpbImdldDptb3ZpZXMiLCJnZXQ6YWN0b3JzIiwicG9zdDptb3ZpZXMiLCJwb3N0OmFjdG9ycyIsInBhdGNoOm1vdmllcyIsInBhdGNoOmFjdG9ycyIsImRlbGV0ZTptb3ZpZXMiLCJkZWxldGU6YWN0b3JzIl19.MfKt9hk4IqbA5z9x6t1Ypi11XxYqSDcCBlQE54WHOCTXYmQ-DCKsC5WNaFB60se1OWNvKHzvj8YMCCIAyITu9zXgC4MwnVclusZiq73EKnxfBtIuG7VGqMoAwgWEHiQb9GCx_CGfJVTrcAIESwvne0UbIpEQXD07oSpeVeS2l7-tt8UKf8-aO95JdVPxad6FV1bT35UVscj94d_6a-jfkWLkJuhJlt4Q0QMsyVdg2UbRzGU7nmEiLDpkZb3k_VlIYpTMoDs8nBXW_pmjDOuu2x4r7EcilwynUZ7VjTqzWBfl6L-g5-cejNHSwOCZottoV67j7FPFbaLpgyWvbOi-9A",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "48916baa-9b7f-4d9e-9fde-ecee204aaaf8",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "9dbf4a06-3985-4dd5-8e01-114e720de190",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
